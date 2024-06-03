@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials, setCredetialsAfterRefresh, logOut } from '../../features/auth/auth-slice'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: 'https://localhost:7161',
+    baseUrl: 'https://reservico-api-dev.azurewebsites.net',
     prepareHeaders: async (headers, { getState }) => {
         const token = getState().auth.token
 
