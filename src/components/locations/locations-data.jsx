@@ -244,7 +244,7 @@ const LocationsData = ({ categories }) => {
                                                 window.location.href = '/location-details/' + location.locationId
                                             }}
                                             className="bg-[#28282a]">
-                                            <span>Detils and Reservation</span>
+                                            <span>Details and Reservation</span>
                                         </Button>
                                     </div>
                                 </CardFooter>
