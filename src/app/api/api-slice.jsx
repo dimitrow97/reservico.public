@@ -49,6 +49,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 }
 
 export const apiSlice = createApi({
+    refetchOnMountOrArgChange: 30,
     baseQuery: baseQueryWithReauth,
     tagTypes: [
         "category",
