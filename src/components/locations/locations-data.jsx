@@ -50,7 +50,7 @@ const LocationsData = ({ categories }) => {
 
     const applyFilers = () => {
         let currentFilter = ""
-        console.log(nameFilter)
+
         if (nameFilter !== "") {
             currentFilter += "name.contains(\"" + nameFilter + "\")"
         }
@@ -77,6 +77,7 @@ const LocationsData = ({ categories }) => {
         }
 
         setFilter(currentFilter)
+        setPage(0)
     }
 
     const clearFilters = () => {
@@ -84,6 +85,7 @@ const LocationsData = ({ categories }) => {
         setCityAndCountryFilter("")
         setCategoryFilter([])
         setFilter("")
+        setPage(0)
     }
 
     const {
