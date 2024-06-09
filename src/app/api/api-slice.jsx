@@ -28,7 +28,6 @@ const getToken = async (api, extraOptions) => {
 
     if (tokenResult?.data) {
         api.dispatch(setCredentials({ ...tokenResult.data }))
-        useDispatch(apiSlice.util.invalidateTags(["category", "locations", "reservations"]))
     }
 }
 
