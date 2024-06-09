@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
 import { configureStore } from "@reduxjs/toolkit"
+import { setupListeners } from '@reduxjs/toolkit/query'
 import { apiSlice } from "./api/api-slice"
 import { persistStore, persistReducer } from 'redux-persist'
 import authReducer from '../features/auth/auth-slice'
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import storageSession from 'redux-persist/lib/storage/session'
 
 const persistConfig = {
     key: 'root',
-    storage,
+    storage: storageSession,
   }
 
 const rootReducer = combineReducers({ 
@@ -20,8 +21,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: getDefaultMiddleware =>
-        getDefaultMiddleware({ serializableCheck: false, }).concat(apiSlice.middleware),
+        getDefaultMiddleware({ serializableCheck: false }).concat(apiSlice.middleware),
     devTools: true
 })
+
+setupListeners(store.dispatch)
 
 export const persistor = persistStore(store)

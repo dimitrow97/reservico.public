@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { setCredentials, setCredetialsAfterRefresh, logOut } from '../../features/auth/auth-slice'
+import { useDispatch } from "react-redux"
 
 const baseQuery = fetchBaseQuery({
     baseUrl: 'https://reservico-api-dev.azurewebsites.net',
@@ -27,6 +28,7 @@ const getToken = async (api, extraOptions) => {
 
     if (tokenResult?.data) {
         api.dispatch(setCredentials({ ...tokenResult.data }))
+        useDispatch(apiSlice.util.invalidateTags(["category", "locations", "reservations"]))
     }
 }
 
@@ -48,9 +50,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     return result
 }
 
-export const apiSlice = createApi({
-    refetchOnMountOrArgChange: 30,
+export const apiSlice = createApi({    
     baseQuery: baseQueryWithReauth,
+    refetchOnFocus: true,
+    refetchOnMountOrArgChange: 30,
     tagTypes: [
         "category",
         "locations",
