@@ -63,16 +63,23 @@ const LocationsData = ({ categories }) => {
             currentFilter += and + "(city.contains(\"" + cityAndCountryFilter + "\") or country.contains(\"" + cityAndCountryFilter + "\"))"
         }
         if (categoryFilter.length > 0) {
-            let and = ""
+            let and = " and "
+            let or = " or "
 
             if (currentFilter !== "") {
-                and = " and "
+                currentFilter += and + "(";
             }
 
             for (let i = 0; i < categoryFilter.length; i++) {
-                if (i !== 0) and = " and "
+                if (i !== 0) {
+                    currentFilter += or;
+                }
 
-                currentFilter += and + "category.contains(\"" + categoryFilter[i].name + "\")"
+                currentFilter += "category.contains(\"" + categoryFilter[i].name + "\")"
+            }
+
+            if (currentFilter !== "") {
+                currentFilter += ")";
             }
         }
 
