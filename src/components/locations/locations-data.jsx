@@ -65,21 +65,23 @@ const LocationsData = ({ categories }) => {
         if (categoryFilter.length > 0) {
             let and = " and "
             let or = " or "
+            let closeStatement = false
 
             if (currentFilter !== "") {
-                currentFilter += and + "(";
+                currentFilter += and + "("
+                closeStatement = true
             }
 
             for (let i = 0; i < categoryFilter.length; i++) {
                 if (i !== 0) {
-                    currentFilter += or;
+                    currentFilter += or
                 }
 
                 currentFilter += "category.contains(\"" + categoryFilter[i].name + "\")"
             }
 
-            if (currentFilter !== "") {
-                currentFilter += ")";
+            if (closeStatement) {
+                currentFilter += ")"
             }
         }
 
